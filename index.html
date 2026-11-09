@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信息论基础（第2版）· 第二章双数题精解（24题）</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#f6f7fb; --panel:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --accent:#2563eb; --accent-soft:#eff6ff; --line:#e5e7eb;
+  --gold:#b45309; --gold-soft:#fffbeb;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.75;
+}
+header.top{
+  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%);
+  color:#fff; padding:36px 48px 30px;
+}
+header.top .kicker{font-size:13px;letter-spacing:.2em;opacity:.85;margin-bottom:8px}
+header.top h1{font-size:26px;font-weight:700;margin-bottom:6px}
+header.top .sub{font-size:14px;opacity:.9}
+header.top .badges{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+header.top .badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:4px 14px;font-size:13px}
+.layout{display:flex;gap:0;max-width:1280px;margin:0 auto;align-items:flex-start}
+nav.sidebar{
+  position:sticky;top:0;align-self:flex-start;
+  width:220px;flex-shrink:0;max-height:100vh;overflow-y:auto;
+  padding:20px 12px 40px;border-right:1px solid var(--line);background:var(--bg);
+}
+nav.sidebar h2{font-size:12px;color:var(--muted);letter-spacing:.15em;padding:0 10px 8px}
+nav.sidebar a{
+  display:flex;align-items:center;gap:8px;padding:7px 10px;margin:2px 0;
+  border-radius:8px;font-size:13.5px;color:var(--ink);text-decoration:none;transition:.15s;
+}
+nav.sidebar a .no{
+  font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);
+  border-radius:6px;padding:1px 7px;min-width:34px;text-align:center;
+}
+nav.sidebar a:hover{background:#eef2ff}
+nav.sidebar a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+main{flex:1;min-width:0;padding:28px 40px 80px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:26px 30px;margin-bottom:26px;box-shadow:0 1px 3px rgba(15,23,42,.05);
+  scroll-margin-top:16px;
+}
+.card .head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.card .num{
+  font-size:15px;font-weight:800;color:#fff;background:var(--accent);
+  border-radius:8px;padding:3px 12px;flex-shrink:0;
+}
+.card h3{font-size:19px}
+.card .en{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:14px}
+.sec-label{
+  display:inline-block;font-size:13px;font-weight:700;border-radius:6px;
+  padding:2px 10px;margin-bottom:10px;
+}
+.sec-label.problem{background:var(--accent-soft);color:var(--accent);border:1px solid #bfdbfe}
+.sec-label.solution{background:var(--gold-soft);color:var(--gold);border:1px solid #fde68a}
+.problem-body{
+  background:#f8fafc;border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;padding:16px 20px;font-size:15.5px;
+}
+.solution-body{
+  font-family:"Kaiti SC","STKaiti",KaiTi,"Kaiti",serif;
+  font-size:16.5px;
+}
+.solution-body p{margin:10px 0}
+.solution-body .disp{overflow-x:auto;margin:12px 24px}
+.solution-body strong{color:#0f172a}
+.solution-body p.lead strong:first-child{color:var(--gold)}
+table.dist{
+  border-collapse:collapse;margin:10px 0;font-size:14.5px;
+}
+table.dist th,table.dist td{border:1px solid var(--line);padding:6px 18px;text-align:center}
+table.dist th{background:#f1f5f9}
+.venn{margin:14px 0;text-align:center;background:#fff;border:1px dashed var(--line);border-radius:10px;padding:8px;display:inline-block}
+.answer-box{border:2px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 18px;margin:12px 0}
+footer{max-width:1280px;margin:0 auto;padding:10px 48px 40px;color:var(--muted);font-size:13px}
+.toolbar{display:flex;gap:10px;justify-content:flex-end;margin:18px 4px 0}
+.toolbar button{
+  background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 16px;
+  font-size:13px;color:var(--ink);cursor:pointer;transition:.15s;
+}
+.toolbar button:hover{border-color:var(--accent);color:var(--accent)}
+.totop{position:fixed;right:26px;bottom:26px;background:var(--accent);color:#fff;border:none;
+  width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,.4);display:none}
+@media (max-width:860px){
+  .layout{flex-direction:column}
+  nav.sidebar{position:static;width:100%;max-height:none;border-right:none;border-bottom:1px solid var(--line)}
+  main{padding:20px 16px 60px}
+  header.top{padding:26px 20px}
+}
+@media print{
+  nav.sidebar,.totop,.toolbar{display:none!important}
+  body{background:#fff}
+  .card{break-inside:avoid;border:none;box-shadow:none;padding:10px 0}
+  header.top{background:#1e3a8a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="kicker">ELEMENTS OF INFORMATION THEORY · 2ND EDITION</div>
+  <h1>第二章双数题精解 · 熵、相对熵与互信息</h1>
+  <div class="sub">Cover &amp; Thomas《信息论基础（第 2 版）》Chapter 2 · 双数题 2.2 – 2.48，共 24 题 · 中文题目 + 手写风格中文解答</div>
+  <div class="badges">
+    <span class="badge">📘 24 题全收录</span>
+    <span class="badge">✍️ 解答参考官方 Solutions Manual</span>
+    <span class="badge">🧮 公式由 KaTeX 渲染</span>
+    <span class="badge">🖨️ 支持打印</span>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="nav">
+    <h2>题目目录</h2>
+  </nav>
+  <main id="main">
+    <div class="toolbar">
+      <button onclick="window.print()">🖨️ 打印 / 导出 PDF</button>
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})">回到顶部</button>
+    </div>
+    <div id="cards"></div>
+  </main>
+</div>
+
+<button class="totop" id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<footer>
+  解答过程参考 Cover &amp; Thomas《Elements of Information Theory 2nd Ed》官方 Solutions Manual（solutions2.pdf），
+  按"手写解题"习惯逐步推导，右侧括号注明所用定理。仅供学习参考。
+</footer>
+
+<script src="problems.js"></script>
+<script>
+// ---------- 简易 Markdown 块渲染 ----------
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderTable(lines){
+  let html='<table class="dist">';
+  lines.forEach((ln,i)=>{
+    const cells=ln.replace(/^\|/,'').replace(/\|$/,'').split('|').map(c=>c.trim());
+    if(/^[\s:|-]+$/.test(ln)) return;
+    html+='<tr>'+cells.map(c=>(i===0?'<th>':'<td>')+c+(i===0?'</th>':'</td>')).join('')+'</tr>';
+  });
+  return html+'</table>';
+}
+
+function renderText(text){
+  const blocks=text.split(/\n\s*\n/);
+  let out='';
+  for(let b of blocks){
+    b=b.trim();
+    if(!b) continue;
+    if(b.startsWith('<')){ out+=b; continue; }              // 原生 HTML（如维恩图）
+    if(b.startsWith('$$')){ out+='<div class="disp">'+b+'</div>'; continue; } // 展示公式
+    const lines=b.split('\n');
+    if(lines[0].startsWith('|')){ out+=renderTable(lines); continue; }        // 表格
+    // 普通段落：加粗、行内公式交给 KaTeX auto-render
+    let p=esc(b).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    if(p.startsWith('【')) out+='<p class="lead">'+p+'</p>';
+    else out+='<p>'+p+'</p>';
+  }
+  return out;
+}
+
+// ---------- 构建页面 ----------
+const nav=document.getElementById('nav');
+const cards=document.getElementById('cards');
+PROBLEMS.forEach(p=>{
+  // 目录
+  const a=document.createElement('a');
+  a.href='#p'+p.no;
+  a.innerHTML='<span class="no">2.'+p.no+'</span><span>'+p.title+'</span>';
+  a.id='nav'+p.no;
+  nav.appendChild(a);
+  // 卡片
+  const d=document.createElement('div');
+  d.className='card'; d.id='p'+p.no;
+  d.innerHTML=
+    '<div class="head"><span class="num">题 2.'+p.no+'</span><h3>'+p.title+'</h3></div>'+
+    '<div class="en">'+p.en+'</div>'+
+    '<span class="sec-label problem">题目</span>'+
+    '<div class="problem-body">'+renderText(p.problem)+'</div>'+
+    '<div style="height:14px"></div>'+
+    '<span class="sec-label solution">解答</span>'+
+    '<div class="solution-body">'+renderText(p.solution)+'</div>';
+  cards.appendChild(d);
+});
+
+// ---------- KaTeX 渲染 ----------
+function doMath(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }else{
+    setTimeout(doMath,300);
+  }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',doMath); else doMath();
+
+// ---------- 目录高亮 + 回到顶部 ----------
+const totop=document.getElementById('totop');
+const links=[...document.querySelectorAll('nav.sidebar a')];
+function spy(){
+  totop.style.display=window.scrollY>500?'block':'none';
+  let cur=null;
+  PROBLEMS.forEach(p=>{
+    const el=document.getElementById('p'+p.no);
+    if(el && el.getBoundingClientRect().top<140) cur=p.no;
+  });
+  links.forEach(l=>l.classList.toggle('active',cur!==null&&l.id==='nav'+cur));
+}
+window.addEventListener('scroll',spy); spy();
+</script>
+</body>
+</html>
